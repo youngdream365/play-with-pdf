@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- FOP 配置文件 -->
+<fop version="1.0">
+    <!-- 是否启用严格的 FOP 解析模式，设置为 true 时，FOP 将严格检查 FO 语法 -->
+    <strict-configuration>true</strict-configuration>
+    <!-- 是否启用严格的 FO 验证，设置为 true 可防止不合规的 FO 语法 -->
+    <strict-validation>true</strict-validation>
+
+    <!-- 基础路径：用于解析 FO 文件中引用的相对 URL -->
+    <base>./</base>
+    <!-- 字体基础路径：用于加载自定义字体文件。绝对路径：file:///E:/project/generate-pdf/src/main/resources/fonts/ -->
+    <font-base>../fonts/</font-base>
+
+    <!-- DPI 分辨率设置：
+         source-resolution：用于 SVG 和位图图片的像素尺寸计算，默认 72dpi
+         target-resolution：用于生成的 PDF 位图分辨率，默认 72dpi
+    -->
+    <source-resolution>96</source-resolution>
+    <target-resolution>96</target-resolution>
+
+    <!-- 默认页面尺寸设置：这里设为 A4 纸张大小 (210mm x 297mm)-->
+    <default-page-settings height="297mm" width="210mm"/>
+
+    <!-- 断字模式（Hyphenation）：用于在换行时处理自动断词：参考OFFO项目：https://offo.sourceforge.net/ -->
+    <!-- <hyphenation-pattern lang="zh" extension="xml">lang/zh.xml</hyphenation-pattern>-->
+    <!-- <hyphenation-pattern lang="zh" extension="hyp">lang/zh.hyp</hyphenation-pattern>-->
+
+    <!-- 渲染配置 -->
+    <renderers>
+        <renderer mime="application/pdf">
+            <fonts>
+                <!-- 自动扫描系统全部字体，如 SimSun、SimHei，确保 PDF 显示正常 -->
+                 <auto-detect/>
+                <!-- 手动添加中文字体（阿里巴巴普惠体，5种字重） -->
+                <font metrics-url="Alibaba-PuHuiTi-Light.xml" embed-url="Alibaba-PuHuiTi-Light.ttf">
+                    <font-triplet name="AlibabaPuHuiTi" style="normal" weight="300"/>
+                </font>
+                <font metrics-url="Alibaba-PuHuiTi-Regular.xml" embed-url="Alibaba-PuHuiTi-Regular.ttf">
+                    <font-triplet name="AlibabaPuHuiTi" style="normal" weight="400"/>
+                </font>
+                <font metrics-url="Alibaba-PuHuiTi-Medium.xml" embed-url="Alibaba-PuHuiTi-Medium.ttf">
+                    <font-triplet name="AlibabaPuHuiTi" style="normal" weight="500"/>
+                </font>
+                <font metrics-url="Alibaba-PuHuiTi-Bold.xml" embed-url="Alibaba-PuHuiTi-Bold.ttf">
+                    <font-triplet name="AlibabaPuHuiTi" style="normal" weight="700"/>
+                </font>
+                <font metrics-url="Alibaba-PuHuiTi-Heavy.xml" embed-url="Alibaba-PuHuiTi-Heavy.ttf">
+                    <font-triplet name="AlibabaPuHuiTi" style="normal" weight="900"/>
+                </font>
+                <!-- Emoji 字体（FOP暂不支持彩色 emoji） -->
+                <font metrics-url="Symbola.xml" embed-url="Symbola.ttf">
+                    <font-triplet name="Symbola" style="normal" weight="400"/>
+                    <font-triplet name="Symbola" style="normal" weight="700"/>
+                </font>
+            </fonts>
+
+            <!-- 指定 svg 图形的渲染方式（处理 SVG 转 PDF） -->
+            <svg>org.apache.fop.svg.PDFDocumentGraphics2D</svg>
+        </renderer>
+
+        <!-- PNG 渲染器 -->
+        <renderer mime="image/png"/>
+    </renderers>
+</fop>
